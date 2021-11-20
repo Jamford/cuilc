@@ -285,3 +285,4 @@
   .mapboxgl-popup{
     will-change:unset !important;
   }
+  .mapboxgl-popup-content { min-width: 380px; }
