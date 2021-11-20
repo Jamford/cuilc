@@ -282,4 +282,6 @@
   cursor: pointer;
   color: #5e9538ff;
   }
-  
+  .mapboxgl-popup{
+    will-change:unset !important;
+  }
