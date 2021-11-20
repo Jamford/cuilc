@@ -47,6 +47,8 @@ function createPopup(currentFeature) {
     
     const width_of_content = $('iframe').contents().width();
     $(".mapboxgl-popup-content").width(width_of_content);
+    setTimeout(
+        onYouTubeIframeAPIReady(), 2500);
     
     // var docwidth = $(".mapboxgl-canvas").width();
     // var popupwidth = $(".mapboxgl-popup-content").width();
@@ -589,3 +591,36 @@ const title = document.getElementById("title");
 title.innerText = config.title;
 
 map.addControl(new mapboxgl.NavigationControl());
+
+// function onYouTubeIframeAPIReady() {
+//   player = new YT.Player('player', {
+//     host: 'https://www.youtube.com',
+//     events: {
+//       'onStateChange': onPlayerStateChange
+//     }
+//   });
+// }
+
+// function onPlayerStateChange() {
+//   console.log("YOUTUBE API");
+// }
+
+var isFullscreen = document.fullScreen || document.mozFullScreen || document.webkitIsFullScreen;
+$(document).on('mozfullscreenchange webkitfullscreenchange fullscreenchange',function(e){
+  isFullscreen = !isFullscreen;
+  var css_transform;
+  var element = e.target; 
+  if(isFullscreen && element.nodeName === "IFRAME")
+  {
+    var div_clicked = e.target;
+    var div = div_clicked.closest('.mapboxgl-popup');
+    css_transform = div.style.transform;
+    div.style.transform = "none";
+  }
+  else if(!isFullscreen &&  element.tagName === "IFRAME")
+  {
+    var div_clicked = e.target;
+    var div = div_clicked.closest('.mapboxgl-popup');
+    div.style.transform = css_transform;
+  }
+});
